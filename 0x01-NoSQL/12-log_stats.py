@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+""" 12. Log stats
 """
-Log stats
-"""
+
+
 from pymongo import MongoClient
 
 
@@ -26,16 +27,6 @@ def log_stats():
     print(f"\tmethod PATCH: {patch}")
     print(f"\tmethod DELETE: {delete}")
     print(f"{path} status check")
-    print("IPs:")
-    sorted_ips = logs_collection.aggregate(
-        [{"$group": {"_id": "$ip", "count": {"$sum": 1}}},
-         {"$sort": {"count": -1}}])
-    i = 0
-    for s in sorted_ips:
-        if i == 10:
-            break
-        print(f"\t{s.get('_id')}: {s.get('count')}")
-        i += 1
 
 
 if __name__ == "__main__":
